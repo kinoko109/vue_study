@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ifの章</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <input id="hoge" type="checkbox" v-model="isCheck" @click="alertCheck">
+        <label for="hoge" @click="delElement">tyekku</label>
+        <p v-if="isCheck">checkしたので表示</p>
+        <p v-else>checkされていないため非表示でーす</p>
+    </div>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                isCheck: false
+            },
+            methods: {
+                alertCheck: function() {
+                    if(this.isCheck === true) {
+                        alert('チェックされました！！！');
+                    }
+                },
+                delElement: function() {
+                    this.isCheck = false
+                }
+            }
+        })
+    </script>
+</body>
+</html>
