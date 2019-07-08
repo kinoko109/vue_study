@@ -10,18 +10,20 @@
 </head>
 <body>
 
-    <h1>checkboxの挙動</h1>
-    <div id="app">
-        <label for="text">同意</label>
-        <input id="text" type="checkbox" v-model="myCheck">
-        <input type="submit" value="送信" :disabled="myCheck == false">
-        <div>
-            赤<input type="checkbox" value="red" v-model="valueDisp">
-            青<input type="checkbox" value="blue" v-model="valueDisp">
-            緑<input type="checkbox" value="green" v-model="valueDisp">
-            <p>選択したのは{{valueDisp}}</p>
+    <section>
+        <h1>checkboxの挙動</h1>
+        <div id="app">
+            <label for="text">同意</label>
+            <input id="text" type="checkbox" v-model="myCheck">
+            <input type="submit" value="送信" :disabled="myCheck == false">
+            <div>
+                赤<input type="checkbox" value="red" v-model="valueDisp">
+                青<input type="checkbox" value="blue" v-model="valueDisp">
+                緑<input type="checkbox" value="green" v-model="valueDisp">
+                <p>選択したのは{{valueDisp}}</p>
+            </div>
         </div>
-    </div>
+    </section>
 
 <script>
 
