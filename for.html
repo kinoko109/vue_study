@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ifの章</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <ul>
+            <li v-for="item in myArray">{{item}}</li>
+        </ul>
+        <p v-for="item in objArray">{{item.name}}　金額は{{item.price}}だお</p>
+        <p v-for="(item, index) in numArr">{{index}}: {{item}}</p>
+    </div>
+
+    <div id="table">
+        <table>
+            <thead>
+                <th v-for="item in header">{{item}}</th>
+            </thead>
+            <tbody>
+                <tr v-for="line in ranking">
+                    <td v-for="data in line">{{data}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                myArray: ['メロン', 'イチゴ', 'スイカ'],
+                objArray: [
+                    {name: '焼肉', price: 2000000},
+                    {name: '飯', price: 6716469},
+                    {name: '柿', price: 464640}
+                ],
+                numArr: ['おじちゃん', 'あね', 'かあちん']
+            }
+        })
+
+        new Vue({
+            el: '#table',
+            data: {
+                header: [
+                    "プログラミング言語",
+                    "1",
+                    "2",
+                    "3"
+                ],
+                ranking: [
+                    ['java', 54658, 5857, 556],
+                    ['javascript', 46548, 64646, 674694],
+                    ['php', 16345, 554, 6464]
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
