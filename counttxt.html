@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+
+    <h1>文字数カウント</h1>
+    <div id="app">
+        <label for="text">入力してください</label>
+        <input type="text" v-model="inputName">
+        <p>{{inputName.length}}文字です。</p>
+    </div>
+
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            inputName: "",
+        }
+    })
+
+</script>
+</body>
+</html>

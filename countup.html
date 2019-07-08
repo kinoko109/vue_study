@@ -5,50 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>vue練習</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="/vue.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
 </head>
 <body>
-    <h2>クリックしたらカウントアップ</h2>
-    <div class="app">
-        <p>{{count}}回</p>
-        <button v-on:click="countUp">カウントアプ</button>
-        <button v-on:click="countDown" :name="countdown">カウントダウン</button>
-    </div>
 
-    <div class="txt">
-        {{$data}}
-        <p>{{myText}}</p>
-        <p>{{name.name1}}</p>
-    </div>
-
-    <div id="vModel">
-        <label for="text">入力してください</label>
-        <input type="text" v-model="inputName">
-        <p>{{inputName.length}}文字です。</p>
-    </div>
-
-    <div id="check">
-        <label for="text">同意</label>
-        <input type="checkbox" v-model="myCheck">
-        <input type="submit" value="送信" :disabled="myCheck == false">
-        <div>
-            赤<input type="checkbox" value="red" v-model="valueDisp">
-            青<input type="checkbox" value="blue" v-model="valueDisp">
-            緑<input type="checkbox" value="green" v-model="valueDisp">
-            <p>選択したのは{{valueDisp}}</p>
-        </div>
-    </div>
-
-    <div id="clickArea">
-        <p>{{count}}</p>
-        <button @click="countUp" :disabled="isCount">カウントアップ</button>
-    </div>
+    <section>
+        <h1>カウントアップ</h1>
+        <section>
+            <h2>カウントアップ、ダウン　0より下にはならない</h2>
+            <div id="app">
+                <p>{{count}}回</p>
+                <button v-on:click="countUp">カウントアップ</button>
+                <button v-on:click="countDown" :name="countdown">カウントダウン</button>
+            </div>
+        </section>
+        <section>
+            <h2>10までカウントしたらボタンを押せなくする</h2>
+            <div id="clickArea">
+                <p>{{count}}</p>
+                <button @click="countUp" :disabled="isCount">カウントアップ</button>
+            </div>
+        </section>
+    </section>
 
 <script>
 
     new Vue({
-        el: ".app",
+        el: "#app",
         data: {
             count: 0,
             countdown: "btn-down"
@@ -61,32 +45,6 @@
                 if(this.count === 0) return;
                 this.count--;
             }
-        }
-    })
-
-    new Vue({
-        el: ".txt",
-        data: {
-            myText: "test",
-            name: {
-                name1: "tarou",
-                name2: "sho"
-            }
-        }
-    })
-
-    new Vue({
-        el: "#vModel",
-        data: {
-            inputName: "",
-        }
-    })
-
-    new Vue({
-        el: "#check",
-        data: {
-            myCheck: false,
-            valueDisp: []
         }
     })
 
