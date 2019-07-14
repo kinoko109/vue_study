@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習｜watch</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+
+    <style>
+    .my-comp {
+        width: 300px;
+        background-color: orange;
+        border: 1px solid darkorange;
+        border-radius: 8px;
+        padding: 10px;
+    }
+    </style>
+
+</head>
+<body>
+
+    <section>
+        <h1>component練習</h1>
+        <div id="app">
+            <my-component v-for="(item, index) in myArr"></my-component>
+        </div>
+    </section>
+
+<script>
+
+    var MyComponent = {
+        template: '<p class="my-comp">{{ myName }}</p>',
+        props: {
+            myName: String
+        },
+        created: function() {
+            if (this.myName == null) {
+                this.myName = '名無しの権兵衛';
+            }
+        }
+    }
+    new Vue({
+        el: '#app',
+        data: {
+            myArr: ['桃太郎', '浦島', '金太郎', '白雪姫']
+        },
+        components: {
+            'my-component': MyComponent
+        }
+    })
+
+</script>
+</body>
+</html>

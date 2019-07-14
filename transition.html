@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習｜watch</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+    <style>
+
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .v-enter-active,
+        .v-leave-active {
+            transition: 0.6s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <section>
+        <h1>watch練習</h1>
+        <div id="app">
+            <label><input type="checkbox" v-model="isOK">切り替える</label>
+            <transition>
+                <p v-if="isOK">表示、非表示のアニメ</p>
+            </transition>
+
+            <transition-group>
+                <li v-for="item in dataArr" v-bind:key="item">{{ item }}</li>
+            </transition-group>
+            <label> <input v-model="addItem" placeholder="追加するリスト"></label>
+            <button v-on:click="addList">追加</button>
+            <button v-on:click="removeList">最後の１つを削除</button>
+        </div>
+    </section>
+
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            isOK: false,
+            dataArr: ['桃太郎', 'かぐや姫', 'かちかち山'],
+            addItem: ''
+        },
+        methods: {
+            addList: function() {
+                this.dataArr.push(this.addItem);
+            },
+            removeList: function() {
+                var lastIdx = this.dataArr.length - 1;
+                this.dataArr.splice(lastIdx, 1);
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

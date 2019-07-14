@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue練習｜json</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+
+    <section>
+        <h1>json練習</h1>
+        <div id="app">
+            <input type="file" v-on:change="onFileChange">
+            <p>読み込みデータ＝{{ loadData }}</p>
+        </div>
+    </section>
+
+    <script>
+
+        new Vue({
+            el: "#app",
+            data: {
+                loadData: '',
+            },
+            methods: {
+                onFileChange: function(e) {
+                    file = e.target.files[0];
+                    if (file) {
+                        var reader = new FileReader();
+                        var vm = this;
+                        reader.onload = function(e) {
+                            json = JSON.parse(e.target.result);
+                            vm.loadData = json;
+                        }
+                        reader.readAsText(file);
+                    }
+                }
+            }
+        });
+
+
+    </script>
+</body>
+</html>

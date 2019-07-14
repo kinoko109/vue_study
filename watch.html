@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習｜watch</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+</head>
+<body>
+
+    <section>
+        <h1>watch練習</h1>
+        <div id="app">
+            <h2>禁止文字列アラート</h2>
+            <p>禁止文字は、「{{ forbiddenText }}」です。</p>
+            <textarea v-model="inputText"></textarea>
+
+            <h2>0秒になったらアラート</h2>
+            <p>あと、{{ restSec }}秒</p>
+            <button v-on:click="startTimer">Start</button>
+
+            <h2>TweenMax練習</h2>
+            <button id="movebtn" type="button" onclick="myMove()">移動</button>
+            <p>値は、{{ animeNum }}です。</p>
+            <input v-model.number='myNumber' type="number">
+        </div>
+    </section>
+
+<script>
+
+    function myMove() {
+        // movebtnのxプロパティを1秒で500に増やす
+        TweenMax.to('#movebtn', 1, {x: "500px"});
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            forbiddenText: '禁止',
+            inputText: '',
+            restSec: 10,
+            timerObj: null,
+            myNumber: 0,
+            tweemedNum: 0
+        },
+        methods: {
+            startTimer: function() {
+                // 残り5秒
+                this.restSec = 10;
+                // タイマースタート
+                this.timerObj = setInterval( () => {
+                    this.restSec--
+                }, 1000)
+            }
+        },
+        watch: {
+            // 入力された文字列を監視
+            inputText: function() {
+                var pos = this.inputText.indexOf(this.forbiddenText);
+                if (pos >= 0) {
+                    alert(this.forbiddenText + 'は、入力できません。');
+                    // 入力された文字列から禁止文字を削除する
+                    this.inputText = this.inputText.substr(0, pos);
+                }
+            },
+            // 残り秒を監視
+            restSec: function() {
+                // 0秒以下になったらアラート
+                if (this.restSec = 0) {
+                    alert('制限時間です。');
+                    clearInterval(this.timerObj);
+                }
+            },
+            // myNumberを監視して、値が変わったら実行
+            myNumber: function() {
+                // dataのtweenedNumプロパティを1秒でmyNumberまで増やす
+                TweenMax.to(this.$data, 1, {tweemedNum: this.myNumber})
+            }
+        },
+        computed: {
+            // tweenedNumberが変わったら、変化中のanimeNumberを算出
+            animeNum: function() {
+                return this.tweemedNum.toFixed(0);
+            }
+        }
+
+    })
+
+</script>
+</body>
+</html>

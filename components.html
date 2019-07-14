@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習｜watch</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+
+    <style>
+    .my-comp {
+        width: 300px;
+        background-color: orange;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+    }
+    </style>
+
+</head>
+<body>
+
+    <section>
+        <h1>compornent練習</h1>
+        <div id="app">
+            <my-compornent></my-compornent>
+            <my-compornent></my-compornent>
+            <my-compornent></my-compornent>
+        </div>
+    </section>
+
+<script>
+
+    var MyCompornent = {
+        template: '<p class="my-comp">Hello</p>'
+    }
+    new Vue({
+        el: '#app',
+        components: {
+            'my-compornent': MyCompornent
+        }
+    })
+
+</script>
+</body>
+</html>

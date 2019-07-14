@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習｜watch</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+    <style>
+
+        .v-move {
+            transition: .5s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <section>
+        <h1>watch練習2</h1>
+        <div id="app">
+            <transition-group>
+                <li v-for="item in dataArr" v-bind:key="item">{{ item }}</li>
+            </transition-group>
+            <button v-on:click="sortData">ソートする</button>
+            <button v-on:click="shuffleData">シャッフルする</button>
+        </div>
+    </section>
+
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            dataArr: ['one', 'two', 'three', 'four', 'five']
+        },
+        methods: {
+            sortData: function() {
+                this.dataArr.sort(function(a, b) {
+                    if (a < b) return -1;
+                    if (a > b) return 1;
+                    return 0;
+                });
+            },
+            shuffleData: function() {
+                var buffer = [];
+                var len = this.dataArr.length;
+                for (var i =len; len > 0; len--) {
+                    var r = Math.floor(Math.random() * len);
+                    buffer.push(this.dataArr[r]);
+                    this.dataArr.splice(r, 1);
+                }
+                this.dataArr = buffer;
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
