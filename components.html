@@ -27,6 +27,7 @@
             <my-compornent></my-compornent>
             <my-compornent></my-compornent>
             <my-compornent></my-compornent>
+            <my-component01></my-component01>
         </div>
     </section>
 
@@ -35,10 +36,14 @@
     var MyCompornent = {
         template: '<p class="my-comp">Hello</p>'
     }
+    var MyCompornent01 = {
+        template: '<p>component01</p>'
+    }
     new Vue({
         el: '#app',
         components: {
-            'my-compornent': MyCompornent
+            'my-compornent': MyCompornent,
+            'my-component01': MyCompornent01
         }
     })
 
