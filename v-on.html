@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <p>現在{{ number }}回</p>
+<!--    <button @click="countUp">カウントアップ</button>-->
+    <button @[hoge]="countUp">カウントアップ</button>
+    <p @mousemove="changeMousePos($event, 100)">マウスを載せてください
+        <span @mousemove.stop>反応させない</span>
+    </p>
+    <p>X: {{mousePos.x}} Y:{{mousePos.x}}</p>
+    <a @click.prevent.stop href="https://google.com">google</a>
+    <input type="text" @keyup.enter="myAlert">
+    <input type="text" @keyup.space="myAlert">
+    <input type="text" @keyup.space.enter="myAlert">
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            number: 0,
+            mousePos: {
+                x: 0,
+                y: 0,
+            },
+            hoge: "click"
+        },
+        methods: {
+            countUp: function () {
+                this.number += 1
+            },
+            changeMousePos: function (event, num) {
+                console.log(event)
+                const {clientX, clientY} = event;
+                this.mousePos.x = clientX / num;
+                this.mousePos.y = clientY / num;
+            },
+            // noEvent: function(event) {
+            //     event.stopPropagation();
+            // }
+            myAlert: function () {
+                alert("alert")
+            }
+        }
+    })
+</script>
+</body>
+
+</html>
