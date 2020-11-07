@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+
+<section>
+    <div id="app">
+        <p>{{count}}</p>
+        <button @click="count += 1">あっぷ</button>
+        <p>{{lessThanThree}}</p>
+    </div>
+</section>
+
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            count: 0
+        },
+        computed: {
+            lessThanThree: function () {
+                return this.count > 3 ? "３より↑" : "３より↓"
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
