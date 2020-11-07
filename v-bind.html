@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue練習</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <a :href="url">google</a>
+    <a :[attribute]="url">google</a>
+    <a v-bind="twitterObj">twitter</a>
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            url: "https://google.com",
+            attribute: "href",
+            twitterObj: {href: "https://twitter.com", id: 20}
+        }
+    })
+</script>
+</body>
+
+</html>
