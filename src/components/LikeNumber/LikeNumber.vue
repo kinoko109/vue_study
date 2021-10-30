@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     increment() {
-      this.totalNumber += 1;
+      this.$emit("my-click", this.totalNumber + 1);
     }
   },
   computed: {
