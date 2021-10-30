@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>いいね{{ number }}</p>
+    <p>いいね{{ halfNumber }}</p>
     <button type="button" @click="increment">＋１</button>
   </div>
 </template>
@@ -8,14 +8,22 @@
 <script>
 export default {
   name: 'Likenumber',
-  data() {
-    return {
-      number: 5,
-    }
+  // props: ["totalNumber"],
+  props: {
+    totalNumber: {
+      type: Number,
+      // required: true,
+      default: 10
+    },
   },
   methods: {
     increment() {
-      this.number += 1;
+      this.totalNumber += 1;
+    }
+  },
+  computed: {
+    halfNumber() {
+      return this.totalNumber / 2;
     }
   }
 };

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <LikeHeader />
-    <LikeNumber />
+    <h2>{{ number }}</h2>
+    <LikeNumber :total-number="number" />
+    <LikeNumber :total-number="number" />
   </div>
 </template>
 
@@ -14,6 +16,11 @@ export default {
   components: {
     LikeNumber,
     LikeHeader,
+  },
+  data() {
+    return {
+      number: 10,
+    }
   }
 }
 </script>
