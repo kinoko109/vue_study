@@ -14,6 +14,8 @@
     <div id="app">
         <p>{{count}}</p>
         <button @click="count += 1">あっぷ</button>
+        <p>{{ otherCount }}</p>
+        <button @click="otherCount += 1">あっぷ2</button>
         <p>{{lessThanThree}}</p>
     </div>
 </section>
@@ -23,7 +25,8 @@
     new Vue({
         el: "#app",
         data: {
-            count: 0
+            count: 0,
+            otherCount: 0,
         },
         computed: {
             lessThanThree: function () {
@@ -31,7 +34,8 @@
             }
         },
         watch: {
-            count: function () {
+            hoge: function () {
+                console.log("watch of count")
                 const _self = this;
                 setTimeout(function () {
                     _self.count = 0
