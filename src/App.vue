@@ -9,22 +9,30 @@
     <h2>{{ number }}</h2>
     <LikeNumber :total-number="number" @my-click="number = $event" />
     <LikeNumber :total-number="number" />
+    <button @click="currentComponent = 'Home'">Home</button>
+    <button @click="currentComponent = 'About'">About</button>
+    <component :is="currentComponent"></component>
   </div>
 </template>
 
 <script>
 import LikeNumber from "@/components/LikeNumber/LikeNumber";
 import LikeHeader from "@/components/LikeHeader/LikeHeader";
+import Home from "@/components/Home/Home";
+import About from "@/components/About/About";
 
 export default {
   name: 'App',
   components: {
     LikeNumber,
     LikeHeader,
+    Home,
+    About
   },
   data() {
     return {
       number: 10,
+      currentComponent: "Home",
     }
   }
 }
