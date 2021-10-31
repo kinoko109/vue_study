@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <LikeHeader />
+    <LikeHeader>
+      <h1>トータルのいいね</h1>
+    </LikeHeader>
     <h2>{{ number }}</h2>
     <LikeNumber :total-number="number" @my-click="number = $event" />
     <LikeNumber :total-number="number" />

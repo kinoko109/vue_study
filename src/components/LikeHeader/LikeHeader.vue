@@ -1,9 +1,11 @@
 <template>
-    <h1>トータルいいね数</h1>
+  <div>
+    <slot></slot>
+  </div>
 </template>
 
 <script>
     export default {
-        name: 'Likeheader'
+        props: ["headerText"]
     };
 </script>
