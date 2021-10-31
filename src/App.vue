@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <LikeHeader>
-<!--      <h1>トータルのいいね</h1>-->
+      <!--      <h1>トータルのいいね</h1>-->
       <template v-slot:otherData>
         指定したslotに適用
       </template>
     </LikeHeader>
     <h2>{{ number }}</h2>
-    <LikeNumber :total-number="number" @my-click="number = $event" />
-    <LikeNumber :total-number="number" />
+    <LikeNumber :total-number="number" @my-click="number = $event"/>
+    <LikeNumber :total-number="number"/>
     <button @click="currentComponent = 'Home'">Home</button>
     <button @click="currentComponent = 'About'">About</button>
-    <component :is="currentComponent"></component>
+    <keep-alive>
+      <component :is="currentComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
