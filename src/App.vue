@@ -22,7 +22,7 @@
       <p>{{ eventData.title }}</p>
     </div>
     <h2>vuex</h2>
-    <p>カウント{{ $store.state.count }}</p>
+    <p>カウント{{ $store.getters.counter }}</p>
     <button @click="increment(100)">プラス</button>
     <button @click="decrement(1)">マイナス</button>
   </div>
