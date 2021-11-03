@@ -34,6 +34,8 @@ import LikeHeader from "@/components/LikeHeader/LikeHeader";
 import Home from "@/components/Home/Home";
 import About from "@/components/About/About";
 
+import { mapGetters } from "vuex"
+
 export default {
   name: 'App',
   components: {
@@ -52,9 +54,8 @@ export default {
     }
   },
   computed: {
-    doubleCount() {
-      return this.$store.getters.doubleCounter
-    }
+    ...mapGetters(["doubleCounter"]),
+
   },
   methods: {
     increment() {
