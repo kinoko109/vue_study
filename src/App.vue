@@ -22,7 +22,7 @@
       <p>{{ eventData.title }}</p>
     </div>
     <h2>vuex</h2>
-    <p>カウント{{ count }}</p>
+    <p>カウント{{ doubleCount }}</p>
     <button @click="increment">プラス</button>
     <button @click="decrement">マイナス</button>
   </div>
@@ -52,8 +52,8 @@ export default {
     }
   },
   computed: {
-    count() {
-      return this.$store.state.count;
+    doubleCount() {
+      return this.$store.getters.doubleCounter
     }
   },
   methods: {
