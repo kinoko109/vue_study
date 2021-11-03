@@ -23,7 +23,7 @@
     </div>
     <h2>vuex</h2>
     <p>カウント{{ $store.state.count }}</p>
-    <button @click="increment(10)">プラス</button>
+    <button @click="increment(100)">プラス</button>
     <button @click="decrement(1)">マイナス</button>
   </div>
 </template>
@@ -34,7 +34,7 @@ import LikeHeader from "@/components/LikeHeader/LikeHeader";
 import Home from "@/components/Home/Home";
 import About from "@/components/About/About";
 
-import { mapGetters, mapMutations } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 
 export default {
   name: 'App',
@@ -58,12 +58,13 @@ export default {
 
   },
   methods: {
-    ...mapMutations(["increment", "decrement"]),
+    // ...mapMutations(["increment", "decrement"]),
+    ...mapActions(["increment", "decrement"])
     // increment() {
-    //   this.$store.commit("increment", 10)
+    //   this.$store.dispatch("increment", 100)
     // },
     // decrement() {
-    //   this.$store.commit("decrement", 1)
+    //   this.$store.dispatch("decrement", 1)
     // }
   }
 }
