@@ -22,9 +22,9 @@
       <p>{{ eventData.title }}</p>
     </div>
     <h2>vuex</h2>
-    <p>カウント{{ doubleCount }}</p>
-    <button @click="increment">プラス</button>
-    <button @click="decrement">マイナス</button>
+    <p>カウント{{ $store.state.count }}</p>
+    <button @click="increment(10)">プラス</button>
+    <button @click="decrement(1)">マイナス</button>
   </div>
 </template>
 
@@ -34,7 +34,7 @@ import LikeHeader from "@/components/LikeHeader/LikeHeader";
 import Home from "@/components/Home/Home";
 import About from "@/components/About/About";
 
-import { mapGetters } from "vuex"
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
   name: 'App',
@@ -58,12 +58,13 @@ export default {
 
   },
   methods: {
-    increment() {
-      this.$store.state.count++;
-    },
-    decrement() {
-      this.$store.state.count--;
-    }
+    ...mapMutations(["increment", "decrement"]),
+    // increment() {
+    //   this.$store.commit("increment", 10)
+    // },
+    // decrement() {
+    //   this.$store.commit("decrement", 1)
+    // }
   }
 }
 </script>
