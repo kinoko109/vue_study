@@ -21,6 +21,10 @@
       <input type="text" id="title" v-model.lazy="eventData.title">
       <p>{{ eventData.title }}</p>
     </div>
+    <h2>vuex</h2>
+    <p>カウント{{ count }}</p>
+    <button @click="increment">プラス</button>
+    <button @click="decrement">マイナス</button>
   </div>
 </template>
 
@@ -45,6 +49,19 @@ export default {
       eventData: {
         title: "タイトルです"
       }
+    }
+  },
+  computed: {
+    count() {
+      return this.$store.state.count;
+    }
+  },
+  methods: {
+    increment() {
+      this.$store.state.count++;
+    },
+    decrement() {
+      this.$store.state.count--;
     }
   }
 }
