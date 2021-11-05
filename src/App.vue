@@ -19,11 +19,9 @@
 <script>
 import axios from "axios";
 
-const url = "https://firestore.googleapis.com/v1/projects/vuejs-axios-23bc6/databases/(default)/documents/comments";
-
 export default {
   created() {
-    axios.get(url)
+    axios.get("/comments")
     .then(response => {
       this.posts = response.data.documents;
       console.log(response.data.documents);
@@ -49,7 +47,7 @@ export default {
           }
         }
       }
-      axios.post(url, requestData)
+      axios.post("/comments", requestData)
           .then(response => {
             console.log(response.data.documents);
           })
