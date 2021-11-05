@@ -1,71 +1,63 @@
 <template>
   <div id="app">
-    <LikeHeader>
-      <!--      <h1>トータルのいいね</h1>-->
-      <template v-slot:otherData>
-        指定したslotに適用
-      </template>
-    </LikeHeader>
-    <h2>{{ number }}</h2>
-    <LikeNumber :total-number="number" @my-click="number = $event"/>
-    <LikeNumber :total-number="number"/>
-    <button @click="currentComponent = 'Home'">Home</button>
-    <button @click="currentComponent = 'About'">About</button>
-    <keep-alive>
-      <component :is="currentComponent"></component>
-    </keep-alive>
-    <div>
-      <h2>フォーム</h2>
-      <label for="title">タイトル</label>
-<!--      <input type="text" id="title" v-model="eventData.title">-->
-      <input type="text" id="title" v-model.lazy="eventData.title">
-      <p>{{ eventData.title }}</p>
+    <h3>掲示板に投稿する</h3>
+    <label for="name">ニックネーム：</label>
+    <input id="name" v-model="name" type="text"/>
+    <br><br>
+    <label for="comment">コメント：</label>
+    <textarea id="comment" v-model="comment" type="text"></textarea>
+    <br>
+    <button @click="createComment">投稿する</button>
+    <h2>掲示板</h2>
+    <div v-for="post in posts" :key="post.name">
+      <p>名前：{{ post.fields.name.stringValue }}</p>
+      <p>コメント：{{ post.fields.comment.stringValue }}</p>
     </div>
-    <h2>vuex</h2>
-    <p>カウント{{ $store.getters.counter }}</p>
-    <button @click="increment(100)">プラス</button>
-    <button @click="decrement(1)">マイナス</button>
   </div>
 </template>
 
 <script>
-import LikeNumber from "@/components/LikeNumber/LikeNumber";
-import LikeHeader from "@/components/LikeHeader/LikeHeader";
-import Home from "@/components/Home/Home";
-import About from "@/components/About/About";
+import axios from "axios";
 
-import { mapGetters, mapActions } from "vuex"
+const url = "https://firestore.googleapis.com/v1/projects/vuejs-axios-23bc6/databases/(default)/documents/comments";
 
 export default {
-  name: 'App',
-  components: {
-    LikeNumber,
-    LikeHeader,
-    Home,
-    About
+  created() {
+    axios.get(url)
+    .then(response => {
+      this.posts = response.data.documents;
+      console.log(response.data.documents);
+    })
+    .catch(error => console.log(error));
   },
   data() {
     return {
-      number: 10,
-      currentComponent: "Home",
-      eventData: {
-        title: "タイトルです"
-      }
+      name: "",
+      comment: "",
+      posts: [],
     }
   },
-  computed: {
-    ...mapGetters(["doubleCounter"]),
-
-  },
   methods: {
-    // ...mapMutations(["increment", "decrement"]),
-    ...mapActions(["increment", "decrement"])
-    // increment() {
-    //   this.$store.dispatch("increment", 100)
-    // },
-    // decrement() {
-    //   this.$store.dispatch("decrement", 1)
-    // }
+    createComment() {
+      const requestData = {
+        fields: {
+          name: {
+            stringValue: this.name,
+          },
+          comment: {
+            stringValue: this.comment,
+          }
+        }
+      }
+      axios.post(url, requestData)
+          .then(response => {
+            console.log(response.data.documents);
+          })
+          .catch(error => console.log(error));
+      this.name = "";
+      this.comment = "";
+    },
+
   }
 }
 </script>
