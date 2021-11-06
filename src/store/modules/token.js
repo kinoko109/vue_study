@@ -1,4 +1,5 @@
 import axiosForLogin from "@/axios-auth";
+import axiosRefresh from "@/axios-refresh"
 import router from "@/router";
 
 const state = {
@@ -26,8 +27,22 @@ const actions = {
         ).then(response => {
             commit("updateIdToken", response.data.idToken);
             console.log(response);
+            setTimeout(() => {
+                dispatch("refreshIdToken", response.data.refreshToken)
+            }, response.data.expiresIn * 1000);
             router.push("/");
         })
+    },
+    refreshIdToken({commit}, refreshToken) {
+        axiosRefresh.post(`/token?key=${process.env.VUE_APP_API_KEY}`, {
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
+        }).then(response => {
+            commit("updateIdToken", response.data.id_token);
+            setTimeout(() => {
+                dispatch("refreshIdToken", response.data.refrresh_token);
+            }, response.data.expiresIn * 1000)
+        });
     },
     register({commit}, authData) {
         axiosForLogin.post(`/accounts:signUp?key=${process.env.VUE_APP_API_KEY}`,
