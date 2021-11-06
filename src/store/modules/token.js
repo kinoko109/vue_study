@@ -17,7 +17,7 @@ const getters = {
 }
 
 const actions = {
-    login({commit}, authData) {
+    login({commit, dispatch}, authData) {
         axiosForLogin.post(`/accounts:signInWithPassword?key=${process.env.VUE_APP_API_KEY}`,
             {
                 email: authData.email,
@@ -33,7 +33,7 @@ const actions = {
             router.push("/");
         })
     },
-    refreshIdToken({commit}, refreshToken) {
+    refreshIdToken({commit, dispatch}, refreshToken) {
         axiosRefresh.post(`/token?key=${process.env.VUE_APP_API_KEY}`, {
             grant_type: "refresh_token",
             refresh_token: refreshToken,
