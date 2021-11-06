@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import axiosForLogin from "../../axios-auth";
-
 export default {
   data() {
     return {
@@ -23,14 +21,9 @@ export default {
   },
   methods: {
     login() {
-      axiosForLogin.post(`/accounts:signInWithPassword?key=${process.env.VUE_APP_API_KEY}`,
-          {
-            email: this.email,
-            password: this.password,
-            returnSecureToken: true
-          }
-      ).then(response => {
-        console.log(response);
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password
       })
       this.email = "";
       this.password = "";

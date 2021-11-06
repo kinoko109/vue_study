@@ -21,12 +21,21 @@ import axios from "axios";
 
 export default {
   created() {
-    axios.get("/comments")
+    axios.get("/comments", {
+      headers: {
+        Authorization: `Bearer ${this.idToken}`
+      }
+    })
         .then(response => {
           this.posts = response.data.documents;
           console.log(response.data.documents);
         })
         .catch(error => console.log(error));
+  },
+  computed: {
+    idToken() {
+      return this.$store.getters.idToken;
+    }
   },
   data() {
     return {
@@ -47,7 +56,11 @@ export default {
           }
         }
       }
-      axios.post("/comments", requestData)
+      axios.post("/comments", requestData, {
+        headers: {
+          Authorization: `Bearer ${this.idToken}`
+        }
+      })
           .then(response => {
             console.log(response.data.documents);
           })
