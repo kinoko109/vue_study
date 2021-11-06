@@ -2,9 +2,9 @@ import axios from "axios";
 
 // 新しいaxiosを用意する
 const instance = axios.create({
-    baseURL: "https://firestore.googleapis.com/v1/projects/vuejs-axios-23bc6/databases/(default)/documents"
+    baseURL: "https://identitytoolkit.googleapis.com/v1"
 })
 
-instance.defaults.headers.common = "common";
+// instance.defaults.headers.common = "common";
 
 export default instance;
