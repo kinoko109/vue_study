@@ -17,7 +17,25 @@ const getters = {
 }
 
 const actions = {
-    login({commit, dispatch}, authData) {
+    autoLogin({commit, dispatch}) {
+        const idToken = localStorage.getItem("idToken");
+        if (!idToken) return;
+        const now = new Date();
+        const expiryTimeMs = localStorage.getItem("expiryTimeMs");
+        // 有効期限が切れているかのフラグ
+        const isExpired = now.getTime() >= expiryTimeMs;
+        const refreshToken = localStorage.getItem("refreshToken");
+        if (isExpired) {
+            dispatch("refreshIdToken", refreshToken);
+        } else {
+            const expiresInMs = expiryTimeMs - now.getTime();
+            setTimeout(() => {
+                dispatch("refreshIdToken", refreshToken)
+            }, expiresInMs);
+            commit("updateIdToken", idToken);
+        }
+    },
+    login({dispatch}, authData) {
         axiosForLogin.post(`/accounts:signInWithPassword?key=${process.env.VUE_APP_API_KEY}`,
             {
                 email: authData.email,
@@ -25,11 +43,11 @@ const actions = {
                 returnSecureToken: true
             }
         ).then(response => {
-            commit("updateIdToken", response.data.idToken);
-            console.log(response);
-            setTimeout(() => {
-                dispatch("refreshIdToken", response.data.refreshToken)
-            }, response.data.expiresIn * 1000);
+            dispatch("setAuthData", {
+                idToken: response.data.idToken,
+                expiresIn: response.data.expiresIn,
+                refreshToken: response.data.refreshToken,
+            })
             router.push("/");
         })
     },
@@ -38,9 +56,13 @@ const actions = {
             grant_type: "refresh_token",
             refresh_token: refreshToken,
         }).then(response => {
-            commit("updateIdToken", response.data.id_token);
+            dispatch("setAuthData", {
+                idToken: response.data.id_token,
+                expiresIn: response.data.expires_in,
+                refreshToken: response.data.refresh_token,
+            })
             setTimeout(() => {
-                dispatch("refreshIdToken", response.data.refrresh_token);
+                dispatch("refreshIdToken", response.data.refresh_token);
             }, response.data.expiresIn * 1000)
         });
     },
@@ -52,11 +74,29 @@ const actions = {
                 returnSecureToken: true
             }
         ).then(response => {
-            commit("updateIdToken", response.data.idToken);
+            dispatch("setAuthData", {
+                idToken: response.data.idToken,
+                expiresIn: response.data.expiresIn,
+                refreshToken: response.data.refreshToken,
+            })
             console.log(response);
             router.push("/");
         })
+    },
+    setAuthData({commit, dispatch}, authData) {
+        const now = new Date();
+        // 有効期限が切れるタイミングを取得（今 + 3600秒）
+        const expiryTimeMes = now.getTime() + authData.expiresIn * 1000;
+        commit("updateIdToken", authData.idToken);
+        localStorage.setItem("idToken", authData.idToken);
+        localStorage.setItem("expiryTimeMs", authData.expiryTimeMes);
+        localStorage.setItem("refreshToken", authData.refreshToken);
+        // console.log(response);
+        setTimeout(() => {
+            dispatch("refreshIdToken", authData.refreshToken)
+        }, authData.expiresIn * 1000);
     }
+
 }
 
 export default {

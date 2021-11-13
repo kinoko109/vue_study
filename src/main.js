@@ -51,6 +51,8 @@ axios.interceptors.response.use(
 // 指定したidのinterceptorsを取り消す
 axios.interceptors.request.eject(0)
 
+store.dispatch("autoLogin");
+
 new Vue({
     router,
     render: h => h(App),
