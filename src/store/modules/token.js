@@ -95,6 +95,13 @@ const actions = {
         setTimeout(() => {
             dispatch("refreshIdToken", authData.refreshToken)
         }, authData.expiresIn * 1000);
+    },
+    logout({commit}) {
+        commit("updateIdToken", null);
+        localStorage.removeItem("idToken");
+        localStorage.removeItem("expiryTImeMs");
+        localStorage.removeItem("refreshToken");
+        router.replace("/login");
     }
 
 }
